@@ -8,6 +8,6 @@ kubectl port-forward service/alertmanager-operated --address 0.0.0.0 9093:9093 -
 ```
 
 > ### 💡 Login to Grafana
-> Access to localhost:3000
-> **Email or username:** admin
-> **Password:** prom-operator
+> - Access to localhost:3000
+> - **Email or username:** admin
+> - **Password:** prom-operator
