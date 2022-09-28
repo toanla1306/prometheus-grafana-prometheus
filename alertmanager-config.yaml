@@ -1,0 +1,18 @@
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m 
+    route:
+      group_wait: 20s
+      group_interval: 4m
+      repeat_interval: 4h
+      receiver: 'email-monitor'
+      routes: []
+    receivers:
+      - name: 'email-monitor'
+        email_configs:
+          - to: ldtoan1306@gmail.com
+            from: ldtoan1306@gmail.com
+            smarthost: smtp.gmail.com:587
+            auth_username: ldtoan1306@gmail.com
+            auth_password: bgqmgjlnbskycaum
