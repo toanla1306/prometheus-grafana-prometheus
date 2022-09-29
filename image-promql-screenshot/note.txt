@@ -1,0 +1,8 @@
+1. rate(container_cpu_usage_seconds_total{namespace="monitoring"}[10m])
+   image: container_cpu_usage_seconds_total
+2. rate(container_memory_usage_bytes{namespace="monitoring"}[10m])
+   image: container_memory_usage_bytes
+3. container_fs_writes_total{namespace="monitoring"} / container_fs_reads_bytes_total{namespace="monitoring"}
+   image: container_writes_per_read
+4. rate(container_memory_cache{namespace="monitoring"}[10m])
+   image: container_memory_cache

@@ -1,0 +1,8 @@
+connectors:
+  - alert: https://hocviencongnghebuuchinhv753.webhook.office.com/webhookb2/8ab82746-452f-42da-8007-157cbc9b8140@4ad637ae-6fea-4a27-b57c-38dbd525f069/IncomingWebhook/0081d9f96663458db2ce51a3830630e2/fae73c13-393a-4805-984d-68b055d710a9
+metrics:
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      release: prometheus
+    scrapeInterval: 30s

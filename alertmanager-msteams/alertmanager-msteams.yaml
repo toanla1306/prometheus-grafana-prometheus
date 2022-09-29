@@ -1,0 +1,42 @@
+global:
+  resolve_timeout: 15m
+receivers:
+  - name: devnull
+  - name: prometheus-msteams
+    webhook_configs:
+      - url: "https://prometheus-msteams:2000/alert"
+        send_resolved: true
+route:
+  group_by: ['alert-msteams']
+  group_interval: 1m
+  group_wait: 1m
+  repeat_interval: 5m
+  receiver: devnull
+  routes:
+    - receiver: prometheus-msteams
+      match:
+        severity: none
+    - receiver: prometheus-msteams
+      match:
+        severity: info
+      continue: true
+    - receiver: prometheus-msteams
+      match:
+        severity: warning
+      continue: true
+    - receiver: prometheus-msteams
+      match:
+        severity: critical
+      continue: true
+inhibit_rules:
+  - source_match:
+      alertname: "Watchdog"
+    target_match:
+      alertname: "kubeSchedulerDown"
+    equal: [prometheus]
+  - source_match:
+      alertname: "Watchdog"
+    target_match:
+      alertname: "KubeControllerManagerDown"
+    equal: [prometheus]
+    

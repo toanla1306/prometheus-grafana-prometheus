@@ -1,0 +1,4 @@
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    configSecret: myalertmanager
