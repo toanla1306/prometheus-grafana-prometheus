@@ -15,14 +15,14 @@ kubectl port-forward service/alertmanager-operated --address 0.0.0.0 9093:9093 -
 
 
 > ### 💡 PromQL and Metrics in Grafana
-- ![default ns](/image-promql-screenshot/container_cpu_usage_seconds_total.png)
-- ```rate(container_cpu_usage_seconds_total{namespace="monitoring"}[10m])```
-- ![default ns](/image-promql-screenshot/container_memory_cache.png)
-- ```rate(container_memory_cache{namespace="monitoring"}[10m])```
-- ![default ns](/image-promql-screenshot/container_memory_usage_bytes.png)
-- ```rate(container_memory_usage_bytes{namespace="monitoring"}[10m])```
-- ![default ns](/image-promql-screenshot/container_writes_per_read.png)
-- ```container_fs_writes_total{namespace="monitoring"} / container_fs_reads_bytes_total{namespace="monitoring"}```
+![default ns](/image-promql-screenshot/container_cpu_usage_seconds_total.png)\
+```rate(container_cpu_usage_seconds_total{namespace="monitoring"}[10m])```\
+![default ns](/image-promql-screenshot/container_memory_cache.png)\
+```rate(container_memory_cache{namespace="monitoring"}[10m])```\
+![default ns](/image-promql-screenshot/container_memory_usage_bytes.png)\
+```rate(container_memory_usage_bytes{namespace="monitoring"}[10m])```\
+![default ns](/image-promql-screenshot/container_writes_per_read.png)\
+```container_fs_writes_total{namespace="monitoring"} / container_fs_reads_bytes_total{namespace="monitoring"}```\
 
 
 > ### 💡 Create alert with SMTP
