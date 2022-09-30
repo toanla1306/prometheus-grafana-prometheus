@@ -28,3 +28,33 @@ helm install msteams prometheus-msteams/prometheus-msteams -n monitoring
 kubectl apply -f /vagrant/deployment/backend.yaml
 kubectl apply -f /vagrant/deployment/frontend.yaml
 kubectl apply -f /vagrant/deployment/trial.yaml
+
+### Sending alert over SMTP ###
+cd /vagrant/alertmanager-smtp/
+# Create Alert Manager Config
+helm upgrade --reuse-values \
+    -f alertmanager-config.yaml prometheus \
+    --namespace monitoring
+    prometheus-community/kube-prometheus-stack
+
+# Create record rules which sending alert
+helm upgrade --reuse-values \
+    -f alert-rules.yaml prometheus \
+    --namespace monitoring \
+    prometheus-community/kube-prometheus-stack
+
+
+### Sending alert over MS Teams ###
+cd /vagrant/alertmanager-msteams/
+# Set connectors for alert manager msteams
+helm upgrade -f connectors.yaml msteams \
+    --namespace monitoring \
+    prometheus-msteams/prometheus-msteams
+
+kubectl create secret generic myalertmanager \
+    --namespace monitoring \
+    --from-file=alertmanager.yaml=alertmanager-msteams.yaml
+
+helm upgrade -f enable-alert.yaml prometheus \
+    --namespace monitoring \
+    prometheus-community/kube-prometheus-stack

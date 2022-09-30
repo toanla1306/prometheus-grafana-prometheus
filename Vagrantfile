@@ -21,6 +21,6 @@ Vagrant.configure("2") do |config|
       yum install wget -y 
       curl -sfL https://get.k3s.io | sh -
     SHELL
-    config.vm.provision "shell", path: "setup.sh"
+    config.vm.provision "shell", path: "setupv2.sh"
     
 end
