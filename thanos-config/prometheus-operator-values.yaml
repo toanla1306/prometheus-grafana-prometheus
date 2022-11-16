@@ -1,0 +1,25 @@
+prometheus:
+  thanosService:
+    enabled: true
+
+  thanosServiceMonitor:
+    enabled: true
+    interval: 5s
+
+  prometheusSpec:
+    externalLabels:
+      cluster: "<LABEL_CLUSTER>"
+    thanos:         # add Thanos Sidecar
+      objectStorageConfig: # blob storage configuration to upload metrics
+        key: thanos.yaml
+        name: thanos-objstore-config
+
+  prometheusOperator:
+    thanosImage:
+      repository: quay.io/thanos/thanos
+      version: v0.23.0
+      tag: v0.23.0
+  kubelet:
+    serviceMonitor:
+      https:false
+
