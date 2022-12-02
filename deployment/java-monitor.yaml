@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backendjava
+  annotations:
+    "sidecar.jaegertracing.io/inject": "true"
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /metrics
+    prometheus.io/port: backendjavaport
+  labels:
+    name: backendjava
+    release: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backendjava
+  template:
+    metadata:
+      labels:
+        app: backendjava
+    spec:
+      containers:
+        - name: backendjava
+          image: toanla1306/javamonitor:latest
+          imagePullPolicy: Always
+          ports:
+          - name: backendjavaport
+            containerPort: 8082
+            protocol: TCP
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: secretdockerhub
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backendjava
+  labels:
+    app: backendjava
+spec:
+  selector:
+    app: backendjava
+  ports:
+    - name: backendjava
+      protocol: TCP
+      port: 8084
+      targetPort: backendjavaport
+  type: LoadBalancer
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: backendjava
+  namespace: monitoring
+  labels:
+    app: backendjava
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: backendjava
+  endpoints:
+  - port: backendjava
+    path: /actuator/prometheus
+    interval: 15s
+  namespaceSelector:
+    matchNames:
+    - default
