@@ -40,3 +40,6 @@ With blackbox method, we can easily to monitor status of the application.The bla
 
   - ```helm install prometheus-blackbox-exporter prometheus-community/prometheus-blackbox-exporter -f "blackbox-values.yaml" --namespace monitoring```
   ![default ns](/image-promql-screenshot/prometheus/blackbox.png)
+
+### 💡 Backup and Restore
+Reference: https://suraj.io/post/how-to-backup-and-restore-prometheus/
